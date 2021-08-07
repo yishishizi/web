@@ -1,0 +1,44 @@
+{% extends 'mobile/base.html' %}
+{% load static from staticfiles %}
+
+{% block mainbody %}
+	<!--头部-->
+	<header>
+		<div class="header">
+			<h1>我的订单</h1>
+			<a href="{% url 'mobile_member_index' %}" class="return"><i></i></a>
+		</div>
+	</header>
+
+	<!--内容区-->
+	<article class="main-container">
+
+		<!--选项卡-->
+		<nav class="memberOrder-nav line"><a href="{% url 'mobile_member_orders' %}" class="line select">全部</a><a href="{% url 'mobile_member_orders' %}?status=1" class="line">排队中</a><a href="{% url 'mobile_member_orders' %}?status=3">已完成</a></nav>
+		<div class="memberOrder-header"></div>
+
+		<!--列表-->
+		{% for order in orderslist %}
+		<div class="memberOrder-list line" onclick="location.href='{% url 'mobile_member_detail' %}?pid={{ order.id }}'">
+			<p>订单编号：{{ order.id }}{% if order.status == 1 %}（订单进行中）{% elif order.status == 2  %}（订单无效）{% elif order.status == 3 %}（已完成）{% else %}（无订单）{% endif %}</span></p>
+			<div class="order-product line">
+				<ul>
+					{%for vo in order.plist %}
+					<li><img src="{% static 'uploads/product/' %}{{ vo.product.cover_pic }}" alt=""></li>
+					{% endfor %}
+				</ul>
+			</div>
+			<p>总价：<span>￥{{ order.money }}</span>&nbsp;&nbsp;
+			<b>下单时间：</b>{{order.create_at|date:'Y-m-d H:i'}}
+			</p>
+
+		</div>
+		{% endfor %}
+
+	</article>
+{% endblock %}
+
+
+{% block myjavascript %}
+<script type="text/javascript" src="{% static 'mobile/js/swipe-min.js' %}"></script>
+{% endblock %}

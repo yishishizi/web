@@ -1,0 +1,29 @@
+{% extends 'mobile/base.html' %}
+
+{% block mainbody %}
+    <!--头部-->
+    <header>
+        <div class="header">
+            <h1>订单处理</h1>
+            <a href="{% url 'mobile_member_index' %};" class="return"><i></i></a>
+        </div>
+    </header>
+
+    <!--内容区-->
+    <article class="main-container loginContent">
+        <section class="content-header">
+          <h4>
+            信息提示:
+          </h4>
+        </section>
+
+        <div class="pad margin no-print">
+          <div class="callout callout-info" style="margin-bottom: 0!important;padding-left: 50px">
+            <h3><i class="fa fa-exclamation-triangle"></i>  &nbsp; {{ info }}</h3>
+          </div>
+        </div>
+
+        <div class="button"><button onclick="location.href='{% url 'mobile_index' %}'">继续购物</button></div>
+    </article>
+
+{% endblock %}

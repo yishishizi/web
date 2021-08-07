@@ -1,0 +1,15 @@
+{% extends "myapp/base.html" %}
+{% block title2 %}
+Django的模板继承实例
+{% endblock %}
+
+{% block myconten %}
+<ul>
+    <li>如果在模版中使用extends标签，它必须是模版中的第一个标签</li>
+    <li>不能在一个模版中定义多个相同名字的block标签</li>
+    <li>子模版不必定义全部父模版中的blocks，如果子模版没有定义block，则使用了父模版中的默认值</li>
+    <li>如果发现在模板中大量的复制内容，那就应该把内容移动到父模板中</li>
+    <li>使用可以获取父模板中block的内容</li>
+    <li>为了更好的可读性，可以给endblock标签一个名字</li>
+</ul>
+{% endblock %}

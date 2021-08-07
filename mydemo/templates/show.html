@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>展示照片</title>
+</head>
+<body>
+{% for image in all_images %}
+    <img src="/{{ image.img }}" style="width: 240px;height: 240px;">
+{% endfor %}
+<br/>
+<p style="text-align: center;color: #2b542c;font-size: 20px;">
+    <a href="{% url 'upload' %}" rel="external nofollow"  rel="external nofollow" >返回</a>
+</p>
+</body>
+</html>

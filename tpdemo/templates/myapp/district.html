@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ajax实战--城市信息级联操作</title>
+    <script src="/static/jquery-1.8.2.min.js"></script><!--加载静态js文件-->
+    <script>
+        //jquery入口程序
+        $(function(){
+            /*
+            //alert("ok");
+            //使用jquery的Ajax请求加载城市信息
+            $.ajax({
+                type:'get',//请求方式
+                url:'{% url "district" 0 %}',//请求地址
+                datatype:'json',//响应数据格式
+                async:false,//异步请求
+                success:function (res) {//请求成功后返回（响应）的回调函数,res是返回的数据
+                    alert(res);
+                }
+            });
+            */
+            $.ajax({
+                type:'get',
+                url:"{% url 'district' 0 %}",
+                dataType:'json',
+                async: false,
+                success:function(res){
+                    list = res.data;
+                    //遍历响应的城市信息
+                    for(var i=0;i<list.length;i++){
+                        $("#cid").append("<option value='"+list[i].id+"'>"+list[i].name+"</option>");
+                    }
+                },
+            });
+
+            //获取最后一个下拉框并添加选中事件
+            $("select").live('change',function(){
+                //获取选中的id号
+                var id = $(this).val();
+                $(this).nextAll().remove();
+                $.ajax({
+                    url: "/district/"+id,
+                    type: 'get',
+                    data: {},
+                    dataType:'json',
+                    success:function(res){
+                        if(res.data.length<1)
+                            return;
+                        var data = res.data;
+                        var select = $("<select></select>")
+                        for(var i=0;i<data.length;i++){
+                            $('<option value="'+data[i].id+'">'+data[i].name+'</option>').appendTo(select)
+                            //$('select:last').append('<option value="'+data[i].id+'">'+data[i].name+'</option>');
+                        }
+                        $("select:last").after(select);
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <h2>Ajax实战--城市信息级联操作</h2>
+    <select id="cid" name="city">
+        <option>-请选择-</option>
+    </select>
+
+</body>
+</html>

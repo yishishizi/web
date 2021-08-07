@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>上传照片</title>
+</head>
+<body>
+<div style="height: 160px">
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <h1>上传图片页面</h1>
+        <table cellpadding="5px">
+            <tr>
+                <td>上传图片</td>
+                <td><input type="file" name="img"></td>
+            </tr>
+            <tr>
+                <td>
+                    <button>上传</button>
+                </td>
+                <td><strong style="color: red">{{ error }}</strong></td>
+            </tr>
+        </table>
+    </form>
+</div>
+<div style="text-align: center;color: #2b542c;font-size: 20px;">
+    <a href=" {% url 'show' %} " rel="external nofollow" >返回</a>
+</div>
+</body>
+</html>
